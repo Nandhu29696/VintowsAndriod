@@ -1,0 +1,233 @@
+{
+ "success": true,
+ "statusCode": 200,
+ "message": "Roleaccesss retrieved successfully",
+ "data": [
+  {
+   "roleId": 1,
+   "role": {
+    "id": 1,
+    "name": "SuperAdmin"
+   },
+   "menus": [
+    {
+     "roleaccessId": 50,
+     "menuId": 23,
+     "menu": {
+      "id": 23,
+      "menuName": "Reports & Charts Access",
+      "name": "reports-access",
+      "sequenceNumber": 1,
+      "icon": null,
+      "urlLink": "/admin/reports-access",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": null,
+      "isParent": false
+     },
+     "submenus": []
+    },
+    {
+     "roleaccessId": 11,
+     "menuId": 7,
+     "menu": {
+      "id": 7,
+      "menuName": "Test",
+      "name": "Test",
+      "sequenceNumber": null,
+      "icon": 285,
+      "urlLink": "",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": {
+       "name": "canteen_feedback",
+       "iconUrl": "bi-star-fill"
+      },
+      "isParent": false
+     },
+     "submenus": [
+      {
+       "roleaccessId": 11,
+       "submenuId": 1,
+       "submenu": {
+        "id": 1,
+        "submenuName": "Action Icon Grants",
+        "name": "action_icon_grants",
+        "icon": null,
+        "urlLink": null,
+        "menuSourceId": null,
+        "source": null,
+        "parentMenu": null,
+        "isParent": false
+       }
+      },
+      {
+       "roleaccessId": 13,
+       "submenuId": 15,
+       "submenu": {
+        "id": 15,
+        "submenuName": "G_learners",
+        "name": "g_learners",
+        "icon": 112,
+        "urlLink": "",
+        "menuSourceId": null,
+        "source": null,
+        "parentMenu": {
+         "name": "mentor_assignments",
+         "iconUrl": "bi-person-lines-fill"
+        },
+        "isParent": false
+       }
+      }
+     ]
+    },
+    {
+     "roleaccessId": 45,
+     "menuId": 22,
+     "menu": {
+      "id": 22,
+      "menuName": "test12",
+      "name": "test12",
+      "sequenceNumber": null,
+      "icon": 285,
+      "urlLink": "",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": {
+       "name": "canteen_feedback",
+       "iconUrl": "bi-star-fill"
+      },
+      "isParent": false
+     },
+     "submenus": [
+      {
+       "roleaccessId": 45,
+       "submenuId": 19,
+       "submenu": {
+        "id": 19,
+        "submenuName": "Action Icon Rows",
+        "name": "action_icon_rows",
+        "icon": null,
+        "urlLink": null,
+        "menuSourceId": null,
+        "source": null,
+        "parentMenu": null,
+        "isParent": false
+       }
+      }
+     ]
+    },
+    {
+     "roleaccessId": 34,
+     "menuId": 14,
+     "menu": {
+      "id": 14,
+      "menuName": "Schema",
+      "name": "Schema",
+      "sequenceNumber": null,
+      "icon": 279,
+      "urlLink": "",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": {
+       "name": "dashboard_config",
+       "iconUrl": "bi-layout-wtf"
+      },
+      "isParent": false
+     },
+     "submenus": [
+      {
+       "roleaccessId": 34,
+       "submenuId": 18,
+       "submenu": {
+        "id": 18,
+        "submenuName": "Schema_module_assignments",
+        "name": "schema_module_assignments",
+        "icon": 282,
+        "urlLink": "",
+        "menuSourceId": 1,
+        "source": {
+         "name": "MODULES",
+         "filesUrl": "/app/module-assignment"
+        },
+        "parentMenu": {
+         "name": "canteen_menu",
+         "iconUrl": "bi-menu-button-wide"
+        },
+        "isParent": false
+       }
+      }
+     ]
+    },
+    {
+     "roleaccessId": 43,
+     "menuId": 17,
+     "menu": {
+      "id": 17,
+      "menuName": "Controll setting",
+      "name": "tenants",
+      "sequenceNumber": null,
+      "icon": 243,
+      "urlLink": "",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": {
+       "name": "module_permissions_config",
+       "iconUrl": "bi-toggles"
+      },
+      "isParent": false
+     },
+     "submenus": []
+    },
+    {
+     "roleaccessId": 40,
+     "menuId": 10,
+     "menu": {
+      "id": 10,
+      "menuName": "Device_tokens",
+      "name": "device_tokens",
+      "sequenceNumber": null,
+      "icon": 189,
+      "urlLink": "",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": {
+       "name": "equipment_calibration",
+       "iconUrl": "bi-gear-wide"
+      },
+      "isParent": false
+     },
+     "submenus": []
+    },
+    {
+     "roleaccessId": 7,
+     "menuId": 6,
+     "menu": {
+      "id": 6,
+      "menuName": "User Roles",
+      "name": "roles",
+      "sequenceNumber": null,
+      "icon": 224,
+      "urlLink": "",
+      "menuType": "admin",
+      "menuSourceId": null,
+      "source": null,
+      "parentMenu": {
+       "name": "assignments",
+       "iconUrl": "bi-pencil-fill"
+      },
+      "isParent": false
+     },
+     "submenus": []
+    }
+   ]
+  }
+ ],
+ "timestamp": "2026-10-07T13:56:37.802Z"
+}

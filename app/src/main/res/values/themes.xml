@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window theme only; all UI styling lives in Compose (core/designsystem). -->
+    <style name="Theme.Vintows" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/vintows_background</item>
+    </style>
+
+    <!-- Shown while the stored session is restored (core-splashscreen). -->
+    <style name="Theme.Vintows.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/vintows_navy</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.Vintows</item>
+    </style>
+</resources>
