@@ -31,7 +31,7 @@ class MenuAndTabsTest {
     }
 
     private fun session(role: String?, scope: String?) =
-        Session(accessToken = "t", userId = 1, email = "u@x.com", role = role, scope = scope)
+        Session(accessToken = "t", userId = "1", email = "u@x.com", role = role, scope = scope)
 
     @Test
     fun `admin scope wins over role name`() {

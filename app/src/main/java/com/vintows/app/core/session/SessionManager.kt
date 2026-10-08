@@ -107,7 +107,8 @@ class SessionManager @Inject constructor(
     private object Keys {
         val ACCESS_TOKEN = stringPreferencesKey("access_token")
         val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
-        val USER_ID = intPreferencesKey("user_id")
+        // String since learners have UUID ids; new key name so old Int values are never read as String.
+        val USER_ID = stringPreferencesKey("user_id_v2")
         val EMAIL = stringPreferencesKey("email")
         val ROLE_ID = intPreferencesKey("role_id")
         val ROLE = stringPreferencesKey("role")

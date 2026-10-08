@@ -12,6 +12,7 @@ import com.vintows.app.core.session.JwtDecoder
 import com.vintows.app.core.session.SessionManager
 import com.vintows.app.feature.auth.data.AuthApi
 import com.vintows.app.feature.auth.data.AuthRepositoryImpl
+import com.vintows.app.testing.FakePushRegistrar
 import com.vintows.app.testing.FakeTokenCipher
 import com.vintows.app.testing.InMemoryPreferencesDataStore
 import com.vintows.app.testing.testJson
@@ -56,7 +57,10 @@ class LiveQaSmokeTest {
             .build()
         val apiCaller = ApiCaller(testJson)
         val menuRepository = MenuRepository(retrofit.create<MenuApi>(), apiCaller)
-        val auth = AuthRepositoryImpl(retrofit.create<AuthApi>(), apiCaller, JwtDecoder(testJson), sessionManager, menuRepository)
+        val auth = AuthRepositoryImpl(
+            retrofit.create<AuthApi>(), apiCaller, JwtDecoder(testJson), sessionManager, menuRepository,
+            push = FakePushRegistrar(), appScope = CoroutineScope(Dispatchers.Unconfined),
+        )
 
         val login = auth.login(email!!, password!!)
         assertTrue("Login failed: $login", login is NetworkResult.Success)

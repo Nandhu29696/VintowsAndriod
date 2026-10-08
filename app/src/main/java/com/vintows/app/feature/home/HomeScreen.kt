@@ -1,5 +1,13 @@
 package com.vintows.app.feature.home
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,6 +54,7 @@ import com.vintows.app.core.rbac.HomeTab
 
 @Composable
 fun HomeRoute(
+    onOpenNotifications: () -> Unit,
     onOpenDiagnostics: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
@@ -54,6 +63,7 @@ fun HomeRoute(
         state = state,
         onRetryMenus = { viewModel.loadMenus(forceRefresh = true) },
         onLogout = viewModel::logout,
+        onOpenNotifications = onOpenNotifications,
         onOpenDiagnostics = onOpenDiagnostics,
     )
 }
@@ -64,8 +74,10 @@ fun HomeScreen(
     state: HomeUiState,
     onRetryMenus: () -> Unit,
     onLogout: () -> Unit,
+    onOpenNotifications: () -> Unit,
     onOpenDiagnostics: () -> Unit,
 ) {
+    NotificationPermissionRequest(enabled = state.pushAvailable)
     val session = state.session
     if (session == null || state.tabs.isEmpty() || state.loggingOut) {
         LoadingState()
@@ -87,8 +99,7 @@ fun HomeScreen(
                     actionIconContentColor = MaterialTheme.colorScheme.onPrimary,
                 ),
                 actions = {
-                    // Notifications arrive in Phase 3 (FCM).
-                    IconButton(onClick = {}, enabled = false) {
+                    IconButton(onClick = onOpenNotifications) {
                         Icon(Icons.Outlined.Notifications, contentDescription = "Notifications")
                     }
                     Box {
@@ -160,6 +171,18 @@ fun HomeScreen(
             },
             dismissButton = { TextButton(onClick = { confirmLogout = false }) { Text("Cancel") } },
         )
+    }
+}
+
+/** Android 13+ needs runtime permission to show push notifications. Asked once per Home visit. */
+@Composable
+private fun NotificationPermissionRequest(enabled: Boolean) {
+    if (!enabled || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
+    val context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    LaunchedEffect(Unit) {
+        val granted = ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        if (!granted) launcher.launch(Manifest.permission.POST_NOTIFICATIONS)
     }
 }
 

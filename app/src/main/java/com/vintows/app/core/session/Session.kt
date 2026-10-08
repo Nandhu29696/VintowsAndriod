@@ -8,7 +8,8 @@ package com.vintows.app.core.session
 data class Session(
     val accessToken: String,
     val refreshToken: String? = null,
-    val userId: Int,
+    /** Numeric for admins/trainers ("3"), UUID for learners. */
+    val userId: String,
     val email: String,
     val roleId: Int? = null,
     val role: String? = null,

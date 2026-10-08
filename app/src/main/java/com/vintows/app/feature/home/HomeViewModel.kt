@@ -3,6 +3,7 @@ package com.vintows.app.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vintows.app.core.network.NetworkResult
+import com.vintows.app.core.push.PushRegistrar
 import com.vintows.app.core.rbac.HomeTab
 import com.vintows.app.core.rbac.MenuItem
 import com.vintows.app.core.rbac.MenuRepository
@@ -29,6 +30,8 @@ data class HomeUiState(
     val tabs: List<HomeTab> = emptyList(),
     val menus: MenusState = MenusState.Loading,
     val loggingOut: Boolean = false,
+    /** Ask for the Android 13+ notification permission only when push can actually work. */
+    val pushAvailable: Boolean = false,
 )
 
 @HiltViewModel
@@ -36,9 +39,10 @@ class HomeViewModel @Inject constructor(
     sessionManager: SessionManager,
     private val menuRepository: MenuRepository,
     private val authRepository: AuthRepository,
+    push: PushRegistrar,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(HomeUiState())
+    private val _state = MutableStateFlow(HomeUiState(pushAvailable = push.isAvailable))
     val state: StateFlow<HomeUiState> = _state.asStateFlow()
 
     init {

@@ -70,6 +70,7 @@ import com.vintows.app.core.designsystem.theme.VintowsTheme
 fun LoginRoute(
     sessionExpired: Boolean,
     onLoggedIn: () -> Unit,
+    onStudentSignIn: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -84,6 +85,7 @@ fun LoginRoute(
         onPasswordChange = viewModel::onPasswordChange,
         onTogglePassword = viewModel::togglePasswordVisibility,
         onLogin = viewModel::login,
+        onStudentSignIn = onStudentSignIn,
         onContactAdmin = {
             try {
                 context.startActivity(Intent(Intent.ACTION_VIEW, "${BuildConfig.WEB_URL}admincontact".toUri()))
@@ -102,6 +104,7 @@ fun LoginScreen(
     onPasswordChange: (String) -> Unit,
     onTogglePassword: () -> Unit,
     onLogin: () -> Unit,
+    onStudentSignIn: () -> Unit,
     onContactAdmin: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
@@ -148,6 +151,17 @@ fun LoginScreen(
                             color = MaterialTheme.colorScheme.error,
                             textAlign = TextAlign.Center,
                         )
+                    }
+
+                    LabeledDivider("Students")
+                    Button(
+                        onClick = onStudentSignIn,
+                        enabled = !state.isLoading,
+                        modifier = Modifier.fillMaxWidth().height(48.dp),
+                    ) {
+                        Icon(Icons.Outlined.Email, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(Modifier.size(8.dp))
+                        Text("Continue with email code")
                     }
 
                     LabeledDivider("Continue with us")
@@ -275,6 +289,7 @@ private fun LoginScreenPreview() {
             onPasswordChange = {},
             onTogglePassword = {},
             onLogin = {},
+            onStudentSignIn = {},
             onContactAdmin = {},
         )
     }

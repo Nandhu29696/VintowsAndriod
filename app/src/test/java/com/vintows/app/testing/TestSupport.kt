@@ -3,6 +3,7 @@ package com.vintows.app.testing
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.Preferences
+import com.vintows.app.core.push.PushRegistrar
 import com.vintows.app.core.session.TokenCipher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,6 +27,15 @@ class MainDispatcherRule(
 ) : TestWatcher() {
     override fun starting(description: Description) = Dispatchers.setMain(dispatcher)
     override fun finished(description: Description) = Dispatchers.resetMain()
+}
+
+/** Records push calls; push is "available" so register/unregister paths run. */
+class FakePushRegistrar : PushRegistrar {
+    var registered = 0
+    var unregistered = 0
+    override val isAvailable = true
+    override suspend fun registerDevice() { registered++ }
+    override suspend fun unregisterDevice() { unregistered++ }
 }
 
 /** Reversible stand-in for the Android Keystore cipher. */

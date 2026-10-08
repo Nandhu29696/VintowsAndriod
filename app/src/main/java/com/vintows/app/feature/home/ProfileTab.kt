@@ -57,7 +57,7 @@ fun ProfileTab(
 
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                DetailRow("User ID", session.userId.toString())
+                DetailRow("User ID", session.userId)
                 DetailRow("Role ID", session.roleId?.toString() ?: "—")
                 DetailRow("Scope", session.scope ?: "—")
                 DetailRow("Tenant", session.tenantId ?: "—")

@@ -22,7 +22,7 @@ class SessionManagerTest {
     private val session = Session(
         accessToken = "access",
         refreshToken = "refresh",
-        userId = 3,
+        userId = "3",
         email = "admin@example.com",
         roleId = 1,
         role = "SuperAdmin",

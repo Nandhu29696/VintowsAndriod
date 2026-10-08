@@ -2,6 +2,7 @@ package com.vintows.app
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vintows.app.core.push.PushRegistrar
 import com.vintows.app.core.session.SessionEvent
 import com.vintows.app.core.session.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,7 +28,11 @@ sealed interface AppState {
 @HiltViewModel
 class AppViewModel @Inject constructor(
     private val sessionManager: SessionManager,
+    private val push: PushRegistrar,
 ) : ViewModel() {
+
+    /** False until the client's google-services.json is added to the build. */
+    val pushAvailable: Boolean get() = push.isAvailable
 
     private val restored = MutableStateFlow(false)
     private val expired = MutableStateFlow(false)
@@ -48,8 +53,10 @@ class AppViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            sessionManager.restore()
+            val session = sessionManager.restore()
             restored.value = true
+            // Re-send the FCM token on each start: it can rotate while the app is closed.
+            if (session != null) push.registerDevice()
         }
     }
 

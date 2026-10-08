@@ -5,7 +5,6 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.contentOrNull
-import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.longOrNull
 import java.util.Base64
@@ -17,7 +16,7 @@ import javax.inject.Inject
  *    "tenantId":null, "iat":…, "exp":…, "aud":"veskill-client", "iss":"veskill-api" }`
  */
 data class JwtClaims(
-    val userId: Int?,
+    val userId: String?,
     val role: String?,
     val email: String?,
     val scope: String?,
@@ -40,7 +39,7 @@ class JwtDecoder @Inject constructor(private val json: Json) {
             return null
         }
         return JwtClaims(
-            userId = obj.primitive("userId")?.intOrNull,
+            userId = obj.primitive("userId")?.contentOrNull,
             role = obj.primitive("role")?.contentOrNull,
             email = obj.primitive("email")?.contentOrNull,
             scope = obj.primitive("scope")?.contentOrNull,

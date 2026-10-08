@@ -6,6 +6,14 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+// Push is enabled only when the client's Firebase config is present (app/google-services.json,
+// or per flavour in app/src/<flavour>/). Without it the app builds and runs with push switched off.
+val hasFirebaseConfig = listOf("google-services.json", "src/dev/google-services.json", "src/qa/google-services.json", "src/prod/google-services.json")
+    .any { file(it).exists() }
+if (hasFirebaseConfig) {
+    apply(plugin = "com.google.gms.google-services")
+}
+
 android {
     namespace = "com.vintows.app"
     compileSdk = 37
@@ -17,6 +25,7 @@ android {
         versionCode = 1
         versionName = "0.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("boolean", "PUSH_ENABLED", hasFirebaseConfig.toString())
     }
 
     // One flavour per backend environment. BASE_URL must end with "/".
@@ -97,6 +106,9 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.messaging)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)

@@ -42,7 +42,7 @@ class AuthInterceptorTest {
 
     private val session = Session(
         accessToken = "token-123",
-        userId = 3,
+        userId = "3",
         email = "admin@example.com",
         roleId = 1,
         role = "SuperAdmin",

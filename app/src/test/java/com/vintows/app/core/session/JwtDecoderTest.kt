@@ -28,7 +28,7 @@ class JwtDecoderTest {
 
         val claims = decoder.decode(jwt)!!
 
-        assertEquals(3, claims.userId)
+        assertEquals("3", claims.userId)
         assertEquals("SuperAdmin", claims.role)
         assertEquals("admin@example.com", claims.email)
         assertEquals("admin", claims.scope)
@@ -51,7 +51,7 @@ class JwtDecoderTest {
 
     @Test
     fun `session expiry uses exp`() {
-        val session = Session(accessToken = "t", userId = 1, email = "e", expiresAtEpochSeconds = 1_000)
+        val session = Session(accessToken = "t", userId = "1", email = "e", expiresAtEpochSeconds = 1_000)
 
         assertFalse(session.isExpired(999))
         assertTrue(session.isExpired(1_000))

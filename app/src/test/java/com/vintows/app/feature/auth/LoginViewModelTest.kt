@@ -4,6 +4,7 @@ import com.vintows.app.core.network.ErrorKind
 import com.vintows.app.core.network.NetworkResult
 import com.vintows.app.core.session.Session
 import com.vintows.app.feature.auth.domain.AuthRepository
+import com.vintows.app.feature.auth.domain.LearnerRegistration
 import com.vintows.app.feature.auth.domain.LoginValidator
 import com.vintows.app.feature.auth.ui.LoginViewModel
 import com.vintows.app.testing.MainDispatcherRule
@@ -23,7 +24,7 @@ class LoginViewModelTest {
 
     private class FakeAuthRepository : AuthRepository {
         var calls = 0
-        var result: NetworkResult<Session> = NetworkResult.Success(Session(accessToken = "t", userId = 3, email = "admin@example.com"))
+        var result: NetworkResult<Session> = NetworkResult.Success(Session(accessToken = "t", userId = "3", email = "admin@example.com"))
         var gate: CompletableDeferred<Unit>? = null
 
         override suspend fun login(email: String, password: String): NetworkResult<Session> {
@@ -32,6 +33,9 @@ class LoginViewModelTest {
             return result
         }
 
+        override suspend fun sendCode(email: String, name: String) = error("not used")
+        override suspend fun verifyCode(email: String, code: String) = error("not used")
+        override suspend fun registerLearner(form: LearnerRegistration) = error("not used")
         override suspend fun logout() = Unit
     }
 
