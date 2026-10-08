@@ -1,7 +1,9 @@
 package com.vintows.app
 
 import android.os.Bundle
+import android.graphics.Color
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -21,7 +23,8 @@ class MainActivity : ComponentActivity() {
         val splash = installSplashScreen()
         super.onCreate(savedInstanceState)
         splash.setKeepOnScreenCondition { appViewModel.state.value == AppState.Loading }
-        enableEdgeToEdge()
+        // Every screen has a navy/blue top edge (login gradient, top app bars), so status-bar icons are always light.
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(Color.TRANSPARENT))
         setContent {
             val appState by appViewModel.state.collectAsStateWithLifecycle()
             VintowsTheme {

@@ -24,6 +24,14 @@ private val LightColors = lightColorScheme(
     surfaceVariant = LightSurfaceVariant,
     outline = LightOutline,
     error = StatusRed,
+    // Neutral blue-grey containers; Material's defaults are lavender, which clashes with the navy brand.
+    surfaceContainerLowest = Color.White,
+    surfaceContainerLow = Color(0xFFF9FAFC),
+    surfaceContainer = Color(0xFFF2F5F9),
+    surfaceContainerHigh = Color(0xFFEDF1F6),
+    surfaceContainerHighest = Color(0xFFE7ECF2),
+    secondaryContainer = Color(0xFFD6E4FA),
+    onSecondaryContainer = VintowsNavyDark,
 )
 
 private val DarkColors = darkColorScheme(
@@ -38,6 +46,13 @@ private val DarkColors = darkColorScheme(
     surfaceVariant = DarkSurfaceVariant,
     outline = DarkOutline,
     error = Color(0xFFFF8A80),
+    surfaceContainerLowest = Color(0xFF0A1017),
+    surfaceContainerLow = Color(0xFF121A24),
+    surfaceContainer = Color(0xFF17202C),
+    surfaceContainerHigh = Color(0xFF1C2633),
+    surfaceContainerHighest = Color(0xFF232E3C),
+    secondaryContainer = VintowsNavy,
+    onSecondaryContainer = Color(0xFFD6E4FA),
 )
 
 private val VintowsTypography = Typography().run {
