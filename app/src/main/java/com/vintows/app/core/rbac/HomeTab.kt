@@ -27,13 +27,13 @@ fun Session.appRole(): AppRole {
 
 /**
  * Tab rules from ANDROID_BUILD_PLAN.md (Phase 1).
- * [adminPreview] adds the learner dashboard for platform admins. Debug builds only: QA student sign-up is
+ * [adminPreview] adds the learner dashboard and courses for platform admins. Debug builds only: QA student sign-up is
  * broken on the backend, so the admin account is the only way to check the dashboard on a phone.
  */
 fun Session.homeTabs(adminPreview: Boolean = false): List<HomeTab> = when (appRole()) {
     AppRole.PlatformAdmin ->
         if (adminPreview) {
-            listOf(HomeTab.Home, HomeTab.Support, HomeTab.Modules, HomeTab.Profile)
+            listOf(HomeTab.Home, HomeTab.Courses, HomeTab.Support, HomeTab.Modules, HomeTab.Profile)
         } else {
             listOf(HomeTab.Support, HomeTab.Modules, HomeTab.Profile)
         }

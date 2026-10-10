@@ -12,6 +12,10 @@ import com.vintows.app.AppState
 import com.vintows.app.feature.auth.ui.LoginRoute
 import com.vintows.app.feature.auth.ui.student.RegisterRoute
 import com.vintows.app.feature.auth.ui.student.StudentSignInRoute
+import com.vintows.app.feature.courses.ui.ContentDestination
+import com.vintows.app.feature.courses.ui.ContentRoute
+import com.vintows.app.feature.courses.ui.CourseNodeDestination
+import com.vintows.app.feature.courses.ui.CourseNodeRoute
 import com.vintows.app.feature.foundation.FoundationRoute
 import com.vintows.app.feature.gamification.ui.LeaderboardRoute
 import com.vintows.app.feature.home.HomeRoute
@@ -99,6 +103,11 @@ fun VintowsNavHost(
                 onOpenNotifications = { navController.navigate(NotificationsDestination) { launchSingleTop = true } },
                 onOpenDiagnostics = { navController.navigate(DiagnosticsDestination) },
                 onOpenLeaderboard = { navController.navigate(LeaderboardDestination) { launchSingleTop = true } },
+                onOpenProgram = { program ->
+                    navController.navigate(
+                        CourseNodeDestination(programId = program.id, levelCode = program.levelCode, nodeId = program.id, title = program.name),
+                    )
+                },
             )
         }
         composable<NotificationsDestination> {
@@ -106,6 +115,16 @@ fun VintowsNavHost(
         }
         composable<LeaderboardDestination> {
             LeaderboardRoute(onBack = { navController.popBackStack() })
+        }
+        composable<CourseNodeDestination> {
+            CourseNodeRoute(
+                onBack = { navController.popBackStack() },
+                onOpenNode = { navController.navigate(it) },
+                onOpenContent = { navController.navigate(it) },
+            )
+        }
+        composable<ContentDestination> {
+            ContentRoute(onBack = { navController.popBackStack() })
         }
         composable<DiagnosticsDestination> {
             FoundationRoute(onBack = { navController.popBackStack() })

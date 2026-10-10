@@ -53,6 +53,8 @@ import com.vintows.app.core.designsystem.component.EmptyState
 import com.vintows.app.core.designsystem.component.InitialsAvatar
 import com.vintows.app.core.designsystem.component.LoadingState
 import com.vintows.app.core.rbac.HomeTab
+import com.vintows.app.feature.courses.domain.CourseNode
+import com.vintows.app.feature.courses.ui.CoursesTab
 import com.vintows.app.feature.gamification.ui.DashboardTab
 
 @Composable
@@ -60,6 +62,7 @@ fun HomeRoute(
     onOpenNotifications: () -> Unit,
     onOpenDiagnostics: () -> Unit,
     onOpenLeaderboard: () -> Unit,
+    onOpenProgram: (CourseNode) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -70,6 +73,7 @@ fun HomeRoute(
         onOpenNotifications = onOpenNotifications,
         onOpenDiagnostics = onOpenDiagnostics,
         onOpenLeaderboard = onOpenLeaderboard,
+        onOpenProgram = onOpenProgram,
     )
 }
 
@@ -82,6 +86,7 @@ fun HomeScreen(
     onOpenNotifications: () -> Unit,
     onOpenDiagnostics: () -> Unit,
     onOpenLeaderboard: () -> Unit,
+    onOpenProgram: (CourseNode) -> Unit,
 ) {
     NotificationPermissionRequest(enabled = state.pushAvailable)
     val session = state.session
@@ -138,14 +143,17 @@ fun HomeScreen(
         },
         snackbarHost = { SnackbarHost(snackbar) },
         bottomBar = {
-            NavigationBar {
-                state.tabs.forEach { tab ->
-                    NavigationBarItem(
-                        selected = tab == selected,
-                        onClick = { selectedName = tab.name },
-                        icon = { Icon(tab.icon(), contentDescription = null) },
-                        label = { Text(tab.label) },
-                    )
+            Column {
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                NavigationBar(containerColor = MaterialTheme.colorScheme.surface, tonalElevation = 0.dp) {
+                    state.tabs.forEach { tab ->
+                        NavigationBarItem(
+                            selected = tab == selected,
+                            onClick = { selectedName = tab.name },
+                            icon = { Icon(tab.icon(), contentDescription = null) },
+                            label = { Text(tab.label, maxLines = 1) },
+                        )
+                    }
                 }
             }
         },
@@ -159,8 +167,12 @@ fun HomeScreen(
                     onOpenDiagnostics = onOpenDiagnostics,
                 )
                 HomeTab.Support -> ComingSoon("Support Centre", "Raise and track support requests. Coming in Phase 2.")
-                HomeTab.Home -> DashboardTab(snackbar = snackbar, onOpenLeaderboard = onOpenLeaderboard)
-                HomeTab.Courses -> ComingSoon("Courses", "Browse programs, subjects and topics. Coming in Phase 5.")
+                HomeTab.Home -> DashboardTab(
+                    displayName = displayNameOf(session.email),
+                    snackbar = snackbar,
+                    onOpenLeaderboard = onOpenLeaderboard,
+                )
+                HomeTab.Courses -> CoursesTab(onOpenProgram = onOpenProgram)
                 HomeTab.Tests -> ComingSoon("Tests", "Your assessments and results. Coming in Phase 6.")
             }
         }
@@ -207,3 +219,11 @@ private fun HomeTab.icon(): ImageVector = when (this) {
     HomeTab.Modules -> Icons.Outlined.Apps
     HomeTab.Profile -> Icons.Outlined.Person
 }
+
+/** "asha.k@example.com" → "Asha". Only the email is known until the profile endpoints work. */
+internal fun displayNameOf(email: String): String =
+    email.substringBefore('@').split('.', '_', '-').firstOrNull { it.any(Char::isLetter) }
+        ?.filter(Char::isLetter)
+        ?.lowercase()
+        ?.replaceFirstChar { it.uppercase() }
+        .orEmpty()

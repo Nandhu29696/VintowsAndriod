@@ -1,0 +1,84 @@
+{
+ "success": true,
+ "statusCode": 200,
+ "message": "Level config retrieved successfully",
+ "data": {
+  "orgType": {
+   "code": "ADMIN",
+   "name": "Vintows Admin"
+  },
+  "levels": [
+   {
+    "code": "DEPARTMENT",
+    "tableName": "course_departments",
+    "label": "Department",
+    "parentCode": null,
+    "order": 1,
+    "enabled": false,
+    "required": false,
+    "rules": {}
+   },
+   {
+    "code": "PROGRAM",
+    "tableName": "programs",
+    "label": "Program",
+    "parentCode": "DEPARTMENT",
+    "order": 2,
+    "enabled": true,
+    "required": true,
+    "rules": {}
+   },
+   {
+    "code": "SEMESTER",
+    "tableName": "course_semesters",
+    "label": "Semester",
+    "parentCode": "PROGRAM",
+    "order": 3,
+    "enabled": false,
+    "required": false,
+    "rules": {}
+   },
+   {
+    "code": "SUBJECT",
+    "tableName": "subjects",
+    "label": "Subject",
+    "parentCode": "SEMESTER",
+    "order": 4,
+    "enabled": true,
+    "required": false,
+    "rules": {}
+   },
+   {
+    "code": "CHAPTER",
+    "tableName": "chapters",
+    "label": "Chapter / Unit",
+    "parentCode": "SUBJECT",
+    "order": 5,
+    "enabled": true,
+    "required": false,
+    "rules": {}
+   },
+   {
+    "code": "LESSON",
+    "tableName": "lessons",
+    "label": "Lesson",
+    "parentCode": "CHAPTER",
+    "order": 6,
+    "enabled": true,
+    "required": false,
+    "rules": {}
+   },
+   {
+    "code": "TOPIC",
+    "tableName": "topics",
+    "label": "Topic",
+    "parentCode": "LESSON",
+    "order": 7,
+    "enabled": true,
+    "required": true,
+    "rules": {}
+   }
+  ]
+ },
+ "timestamp": "2026-10-10T11:44:26.821Z"
+}

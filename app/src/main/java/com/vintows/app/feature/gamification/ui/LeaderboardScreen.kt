@@ -17,20 +17,13 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.EmojiEvents
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -41,7 +34,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.vintows.app.core.designsystem.component.DetailTopBar
 import com.vintows.app.core.designsystem.component.EmptyState
+import com.vintows.app.core.designsystem.component.VCard
 import com.vintows.app.core.designsystem.component.ErrorState
 import com.vintows.app.core.designsystem.component.InitialsAvatar
 import com.vintows.app.core.designsystem.component.LoadingState
@@ -65,7 +60,6 @@ fun LeaderboardRoute(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LeaderboardScreen(
     state: LeaderboardUiState,
@@ -76,17 +70,7 @@ fun LeaderboardScreen(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Leaderboard") },
-                navigationIcon = {
-                    IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back") }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-            )
+            DetailTopBar(title = "Leaderboard", subtitle = "Learners ranked by points", onBack = onBack)
         },
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
@@ -156,13 +140,9 @@ private fun Entries(state: LeaderboardUiState, onRetry: () -> Unit) {
 
 @Composable
 private fun EntryRow(entry: LeaderboardEntry, isMe: Boolean, label: String? = null) {
-    Card(
+    VCard(
         modifier = Modifier.fillMaxWidth(),
-        colors = if (isMe) {
-            CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
-        } else {
-            CardDefaults.cardColors()
-        },
+        color = if (isMe) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
     ) {
         Row(Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalAlignment = Alignment.CenterVertically) {
             RankBadge(entry.rank)

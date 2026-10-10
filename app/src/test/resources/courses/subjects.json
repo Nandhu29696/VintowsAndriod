@@ -1,0 +1,46 @@
+{
+ "success": true,
+ "statusCode": 200,
+ "message": "Nodes retrieved successfully",
+ "data": [
+  {
+   "id": "02d3dd42-edc9-4192-a07e-1f18b07c4702",
+   "name": "testing",
+   "code": null,
+   "course_semester_id": null,
+   "entity_id": null,
+   "institution_id": null,
+   "department_id": null,
+   "description": null,
+   "sequence_number": 0,
+   "is_active": true,
+   "created_by": 2,
+   "created_at": "2026-09-16T08:21:30.489Z",
+   "updated_at": "2026-09-16T08:46:38.311Z",
+   "deleted_at": null,
+   "child_level_code": "CHAPTER",
+   "program_id": "110ed6ce-7296-4920-aaaa-711e43e0b25b",
+   "course_department_id": null
+  },
+  {
+   "id": "14e32550-fc78-4b36-aace-f1c8f85a768d",
+   "name": "Test document",
+   "code": null,
+   "course_semester_id": null,
+   "entity_id": null,
+   "institution_id": null,
+   "department_id": null,
+   "description": null,
+   "sequence_number": 0,
+   "is_active": true,
+   "created_by": 2,
+   "created_at": "2026-09-16T08:19:30.440Z",
+   "updated_at": "2026-09-16T08:49:39.823Z",
+   "deleted_at": null,
+   "child_level_code": "CHAPTER",
+   "program_id": "110ed6ce-7296-4920-aaaa-711e43e0b25b",
+   "course_department_id": null
+  }
+ ],
+ "timestamp": "2026-10-10T11:55:52.403Z"
+}

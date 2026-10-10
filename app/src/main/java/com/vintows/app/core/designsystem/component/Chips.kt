@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.vintows.app.core.designsystem.theme.StatusAmber
 import com.vintows.app.core.designsystem.theme.StatusBlue
 import com.vintows.app.core.designsystem.theme.StatusGreen
@@ -81,6 +82,7 @@ fun InitialsAvatar(
             text = initialsOf(name),
             color = Color.White,
             style = MaterialTheme.typography.labelSmall,
+            fontSize = (size.value * 0.36f).coerceAtLeast(11f).sp,
             fontWeight = FontWeight.Bold,
         )
     }

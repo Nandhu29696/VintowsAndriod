@@ -42,7 +42,7 @@ app/src/main/java/com/vintows/app/
 │  ├─ network/       ApiEnvelope, ApiCaller (→ NetworkResult), AuthInterceptor, HealthApi
 │  ├─ session/       Session, SessionManager (DataStore), KeystoreTokenCipher, JwtDecoder
 │  ├─ di/            AppModule, NetworkModule
-│  ├─ designsystem/  VintowsTheme, StatusChip, PriorityChip, InitialsAvatar, Loading/Error/Empty states
+│  ├─ designsystem/  VintowsTheme (Plus Jakarta Sans), VCard, SectionHeader, IconBadge, PriceTag, DetailTopBar, chips, states
 │  ├─ util/          DateFormatter, initialsOf
 │  ├─ ui/            Section (Loading / Loaded / Failed per screen part)
 │  ├─ push/          PushManager, VintowsMessagingService, NotificationHelper (active only with google-services.json)
@@ -50,6 +50,7 @@ app/src/main/java/com/vintows/app/
 ├─ feature/
 │  ├─ auth/          Password login, student email-code sign-in and sign-up, AuthRepository
 │  ├─ gamification/  Learner dashboard (level, streaks, missions, badges, achievements) and Leaderboard
+│  ├─ courses/       Programs → Subject → Chapter → Lesson → Topic, learning materials and viewers
 │  ├─ notifications/ Notifications list (GET notifications)
 │  ├─ home/          App shell: top bar, role-based bottom tabs, Modules tab, Profile tab
 │  └─ foundation/    Diagnostics screen (debug builds, opened from Profile)
@@ -86,3 +87,7 @@ Unit tests use `InMemoryPreferencesDataStore`: the file-backed DataStore fails o
 ## Known environment note
 
 On this machine Gradle's Java downloader times out reaching `services.gradle.org`. The 9.6.0 distribution was fetched with curl and its SHA-256 is pinned in `gradle/wrapper/gradle-wrapper.properties`.
+
+## Fonts
+
+Plus Jakarta Sans (`res/font/plus_jakarta_sans.ttf`) is licensed under the SIL Open Font License 1.1; the licence ships in `assets/licenses/`.

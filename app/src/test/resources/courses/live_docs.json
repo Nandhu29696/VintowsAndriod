@@ -1,0 +1,26 @@
+{
+ "success": true,
+ "statusCode": 200,
+ "message": "Content items retrieved successfully",
+ "data": [
+  {
+   "id": "a616de11-4b26-471c-bfe1-a5f5276a44e5",
+   "name": "Untitled live doc 2026-09-16",
+   "html": "<p>Press <span class=\"he-kbd-hint\">space</span> to Ask Vintows or <span class=\"he-kbd-hint\">/</span> to insert elements</p>",
+   "level_code": "SUBJECT",
+   "record_id": "02d3dd42-edc9-4192-a07e-1f18b07c4702",
+   "entity_id": null,
+   "institution_id": null,
+   "department_id": null,
+   "sequence_number": null,
+   "is_active": true,
+   "created_by": 2,
+   "created_at": "2026-09-16T08:21:53.034Z",
+   "updated_at": "2026-09-16T08:21:53.034Z",
+   "deleted_at": null,
+   "test_data": null,
+   "content_status": "DRAFT"
+  }
+ ],
+ "timestamp": "2026-10-10T11:55:52.594Z"
+}
