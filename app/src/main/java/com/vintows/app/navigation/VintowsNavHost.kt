@@ -13,6 +13,7 @@ import com.vintows.app.feature.auth.ui.LoginRoute
 import com.vintows.app.feature.auth.ui.student.RegisterRoute
 import com.vintows.app.feature.auth.ui.student.StudentSignInRoute
 import com.vintows.app.feature.foundation.FoundationRoute
+import com.vintows.app.feature.gamification.ui.LeaderboardRoute
 import com.vintows.app.feature.home.HomeRoute
 import com.vintows.app.feature.notifications.ui.NotificationsRoute
 import kotlinx.serialization.Serializable
@@ -33,6 +34,9 @@ data object HomeDestination
 
 @Serializable
 data object NotificationsDestination
+
+@Serializable
+data object LeaderboardDestination
 
 /** Phase 0 check screen, reachable from Profile in debug builds. */
 @Serializable
@@ -94,10 +98,14 @@ fun VintowsNavHost(
             HomeRoute(
                 onOpenNotifications = { navController.navigate(NotificationsDestination) { launchSingleTop = true } },
                 onOpenDiagnostics = { navController.navigate(DiagnosticsDestination) },
+                onOpenLeaderboard = { navController.navigate(LeaderboardDestination) { launchSingleTop = true } },
             )
         }
         composable<NotificationsDestination> {
             NotificationsRoute(onBack = { navController.popBackStack() }, pushEnabled = pushEnabled)
+        }
+        composable<LeaderboardDestination> {
+            LeaderboardRoute(onBack = { navController.popBackStack() })
         }
         composable<DiagnosticsDestination> {
             FoundationRoute(onBack = { navController.popBackStack() })

@@ -2,6 +2,7 @@ package com.vintows.app.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vintows.app.BuildConfig
 import com.vintows.app.core.network.NetworkResult
 import com.vintows.app.core.push.PushRegistrar
 import com.vintows.app.core.rbac.HomeTab
@@ -48,7 +49,7 @@ class HomeViewModel @Inject constructor(
     init {
         // The session is restored before Home is shown; if it is missing the app shell navigates to Login.
         sessionManager.current()?.let { session ->
-            _state.update { it.copy(session = session, tabs = session.homeTabs()) }
+            _state.update { it.copy(session = session, tabs = session.homeTabs(adminPreview = BuildConfig.DEBUG)) }
             loadMenus()
         }
     }

@@ -1,0 +1,168 @@
+{
+ "success": true,
+ "statusCode": 200,
+ "message": "Settings retrieved successfully",
+ "data": [
+  {
+   "id": "bcb6bc60-0c13-4510-8dbb-d5dd0b983a16",
+   "category": "types",
+   "setting_key": "typeOverall",
+   "setting_name": "Overall",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 0
+  },
+  {
+   "id": "78e32daf-c725-4e4c-ba10-0088f2e38721",
+   "category": "types",
+   "setting_key": "typeQuiz",
+   "setting_name": "Quiz",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 1
+  },
+  {
+   "id": "38d4f72e-01f6-4c64-b6a6-54e482f0f059",
+   "category": "types",
+   "setting_key": "typeAssignment",
+   "setting_name": "Assignment",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 2
+  },
+  {
+   "id": "ea4a93f6-3dac-44cc-acfd-5f9476c4a0ac",
+   "category": "types",
+   "setting_key": "typeCoding",
+   "setting_name": "Coding",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 3
+  },
+  {
+   "id": "6ce334d8-0019-43a2-85de-01e85f99de12",
+   "category": "types",
+   "setting_key": "typeProject",
+   "setting_name": "Project",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 4
+  },
+  {
+   "id": "b69537d8-3b78-4483-9c68-e95c42d759d7",
+   "category": "types",
+   "setting_key": "typeCourseCompletion",
+   "setting_name": "Course Completion",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 5
+  },
+  {
+   "id": "7a34ed2f-689d-4902-b05c-07acbbd8abf0",
+   "category": "types",
+   "setting_key": "typeLearningStreak",
+   "setting_name": "Learning Streak",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 6
+  },
+  {
+   "id": "ee2c1229-bbd2-474f-b146-033121ed856f",
+   "category": "types",
+   "setting_key": "typeTeam",
+   "setting_name": "Team",
+   "setting_value": false,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 7
+  },
+  {
+   "id": "d37856ba-a016-48f5-8c57-dd2dd8622c79",
+   "category": "types",
+   "setting_key": "typeDepartment",
+   "setting_name": "Department",
+   "setting_value": false,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 8
+  },
+  {
+   "id": "a24c8187-8295-4bd5-8285-3e58cad5b02c",
+   "category": "types",
+   "setting_key": "typeOrganization",
+   "setting_name": "Organization",
+   "setting_value": false,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 9
+  },
+  {
+   "id": "d8004c76-0563-4aa2-ab95-25b4b4a1ebb3",
+   "category": "types",
+   "setting_key": "typeLeadership",
+   "setting_name": "Leadership",
+   "setting_value": false,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 10
+  },
+  {
+   "id": "cb36a0a4-b000-4ffb-8515-2413007cb6fe",
+   "category": "types",
+   "setting_key": "typeDaily",
+   "setting_name": "Daily",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 11
+  },
+  {
+   "id": "84b00875-591c-43a0-96d8-13da8ace6cdb",
+   "category": "types",
+   "setting_key": "typeWeekly",
+   "setting_name": "Weekly",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 12
+  },
+  {
+   "id": "8742d6ac-fa72-46d9-bd40-00753a32be13",
+   "category": "types",
+   "setting_key": "typeMonthly",
+   "setting_name": "Monthly",
+   "setting_value": true,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 13
+  },
+  {
+   "id": "4f651efb-1111-421f-bbd5-d636c5e08841",
+   "category": "types",
+   "setting_key": "typeQuarterly",
+   "setting_name": "Quarterly",
+   "setting_value": false,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 14
+  },
+  {
+   "id": "bc05cda3-d4dd-4415-b0d4-992cd8b919bd",
+   "category": "types",
+   "setting_key": "typeYearly",
+   "setting_name": "Yearly",
+   "setting_value": false,
+   "is_enabled": true,
+   "is_allowed": false,
+   "sequence_number": 15
+  }
+ ],
+ "timestamp": "2026-10-09T05:52:34.545Z"
+}

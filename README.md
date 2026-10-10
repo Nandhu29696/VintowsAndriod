@@ -44,9 +44,13 @@ app/src/main/java/com/vintows/app/
 │  ├─ di/            AppModule, NetworkModule
 │  ├─ designsystem/  VintowsTheme, StatusChip, PriorityChip, InitialsAvatar, Loading/Error/Empty states
 │  ├─ util/          DateFormatter, initialsOf
+│  ├─ ui/            Section (Loading / Loaded / Failed per screen part)
+│  ├─ push/          PushManager, VintowsMessagingService, NotificationHelper (active only with google-services.json)
 │  └─ rbac/          MenuRepository (roleaccess/get), MenuItem, HomeTab + role → tabs rules
 ├─ feature/
-│  ├─ auth/          Login screen + ViewModel, AuthRepository (auth/login → Session)
+│  ├─ auth/          Password login, student email-code sign-in and sign-up, AuthRepository
+│  ├─ gamification/  Learner dashboard (level, streaks, missions, badges, achievements) and Leaderboard
+│  ├─ notifications/ Notifications list (GET notifications)
 │  ├─ home/          App shell: top bar, role-based bottom tabs, Modules tab, Profile tab
 │  └─ foundation/    Diagnostics screen (debug builds, opened from Profile)
 ├─ navigation/       VintowsNavHost (Login ↔ Home driven by the session)

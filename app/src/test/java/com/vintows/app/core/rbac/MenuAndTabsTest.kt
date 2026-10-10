@@ -38,6 +38,7 @@ class MenuAndTabsTest {
         val s = session(role = "SuperAdmin", scope = "admin")
         assertEquals(AppRole.PlatformAdmin, s.appRole())
         assertEquals(listOf(HomeTab.Support, HomeTab.Modules, HomeTab.Profile), s.homeTabs())
+        assertEquals(listOf(HomeTab.Home, HomeTab.Support, HomeTab.Modules, HomeTab.Profile), s.homeTabs(adminPreview = true))
     }
 
     @Test

@@ -32,6 +32,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -51,11 +53,13 @@ import com.vintows.app.core.designsystem.component.EmptyState
 import com.vintows.app.core.designsystem.component.InitialsAvatar
 import com.vintows.app.core.designsystem.component.LoadingState
 import com.vintows.app.core.rbac.HomeTab
+import com.vintows.app.feature.gamification.ui.DashboardTab
 
 @Composable
 fun HomeRoute(
     onOpenNotifications: () -> Unit,
     onOpenDiagnostics: () -> Unit,
+    onOpenLeaderboard: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -65,6 +69,7 @@ fun HomeRoute(
         onLogout = viewModel::logout,
         onOpenNotifications = onOpenNotifications,
         onOpenDiagnostics = onOpenDiagnostics,
+        onOpenLeaderboard = onOpenLeaderboard,
     )
 }
 
@@ -76,6 +81,7 @@ fun HomeScreen(
     onLogout: () -> Unit,
     onOpenNotifications: () -> Unit,
     onOpenDiagnostics: () -> Unit,
+    onOpenLeaderboard: () -> Unit,
 ) {
     NotificationPermissionRequest(enabled = state.pushAvailable)
     val session = state.session
@@ -88,6 +94,7 @@ fun HomeScreen(
     val selected = state.tabs.firstOrNull { it.name == selectedName } ?: state.tabs.first()
     var accountMenuOpen by remember { mutableStateOf(false) }
     var confirmLogout by remember { mutableStateOf(false) }
+    val snackbar = remember { SnackbarHostState() }
 
     Scaffold(
         topBar = {
@@ -129,6 +136,7 @@ fun HomeScreen(
                 },
             )
         },
+        snackbarHost = { SnackbarHost(snackbar) },
         bottomBar = {
             NavigationBar {
                 state.tabs.forEach { tab ->
@@ -151,7 +159,7 @@ fun HomeScreen(
                     onOpenDiagnostics = onOpenDiagnostics,
                 )
                 HomeTab.Support -> ComingSoon("Support Centre", "Raise and track support requests. Coming in Phase 2.")
-                HomeTab.Home -> ComingSoon("Your dashboard", "XP, streaks, badges and achievements. Coming in Phase 4.")
+                HomeTab.Home -> DashboardTab(snackbar = snackbar, onOpenLeaderboard = onOpenLeaderboard)
                 HomeTab.Courses -> ComingSoon("Courses", "Browse programs, subjects and topics. Coming in Phase 5.")
                 HomeTab.Tests -> ComingSoon("Tests", "Your assessments and results. Coming in Phase 6.")
             }
