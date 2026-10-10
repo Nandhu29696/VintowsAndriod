@@ -53,6 +53,8 @@ import com.vintows.app.core.designsystem.component.EmptyState
 import com.vintows.app.core.designsystem.component.InitialsAvatar
 import com.vintows.app.core.designsystem.component.LoadingState
 import com.vintows.app.core.rbac.HomeTab
+import com.vintows.app.feature.assessments.domain.Assessment
+import com.vintows.app.feature.assessments.ui.TestsTab
 import com.vintows.app.feature.courses.domain.CourseNode
 import com.vintows.app.feature.courses.ui.CoursesTab
 import com.vintows.app.feature.gamification.ui.DashboardTab
@@ -63,6 +65,7 @@ fun HomeRoute(
     onOpenDiagnostics: () -> Unit,
     onOpenLeaderboard: () -> Unit,
     onOpenProgram: (CourseNode) -> Unit,
+    onOpenTest: (Assessment) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -74,6 +77,7 @@ fun HomeRoute(
         onOpenDiagnostics = onOpenDiagnostics,
         onOpenLeaderboard = onOpenLeaderboard,
         onOpenProgram = onOpenProgram,
+        onOpenTest = onOpenTest,
     )
 }
 
@@ -87,6 +91,7 @@ fun HomeScreen(
     onOpenDiagnostics: () -> Unit,
     onOpenLeaderboard: () -> Unit,
     onOpenProgram: (CourseNode) -> Unit,
+    onOpenTest: (Assessment) -> Unit,
 ) {
     NotificationPermissionRequest(enabled = state.pushAvailable)
     val session = state.session
@@ -173,7 +178,7 @@ fun HomeScreen(
                     onOpenLeaderboard = onOpenLeaderboard,
                 )
                 HomeTab.Courses -> CoursesTab(onOpenProgram = onOpenProgram)
-                HomeTab.Tests -> ComingSoon("Tests", "Your assessments and results. Coming in Phase 6.")
+                HomeTab.Tests -> TestsTab(onOpenTest = onOpenTest)
             }
         }
     }

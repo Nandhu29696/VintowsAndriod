@@ -64,6 +64,8 @@ import com.vintows.app.core.designsystem.theme.StatusRed
 import com.vintows.app.core.designsystem.theme.VintowsAccent
 import com.vintows.app.core.designsystem.theme.coverGradientFor
 import com.vintows.app.core.ui.Section
+import com.vintows.app.feature.assessments.domain.Assessment
+import com.vintows.app.feature.assessments.ui.TestCard
 import com.vintows.app.feature.courses.domain.ContentItem
 import com.vintows.app.feature.courses.domain.ContentType
 import com.vintows.app.feature.courses.domain.CourseNode
@@ -74,6 +76,7 @@ fun CourseNodeRoute(
     onBack: () -> Unit,
     onOpenNode: (CourseNodeDestination) -> Unit,
     onOpenContent: (ContentDestination) -> Unit,
+    onOpenTest: (Assessment) -> Unit,
     viewModel: CourseNodeViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -97,6 +100,7 @@ fun CourseNodeRoute(
         onOpenContent = { item ->
             onOpenContent(ContentDestination(item.type.apiPath, item.id, state.levelCode, state.nodeId, item.name))
         },
+        onOpenTest = onOpenTest,
     )
 }
 
@@ -109,6 +113,7 @@ fun CourseNodeScreen(
     onRetry: () -> Unit,
     onOpenChild: (CourseNode) -> Unit,
     onOpenContent: (ContentItem) -> Unit,
+    onOpenTest: (Assessment) -> Unit,
 ) {
     Scaffold(topBar = { DetailTopBar(title = state.title, subtitle = state.trail, onBack = onBack) }) { padding ->
         Box(Modifier.fillMaxSize().padding(padding)) {
@@ -116,7 +121,7 @@ fun CourseNodeScreen(
                 Section.Loading -> LoadingState()
                 is Section.Failed -> ErrorState(contents.message, onRetry = onRetry)
                 is Section.Loaded -> PullToRefreshBox(isRefreshing = state.refreshing, onRefresh = onRefresh, modifier = Modifier.fillMaxSize()) {
-                    NodeBody(state, contents.data, onOpenChild, onOpenContent)
+                    NodeBody(state, contents.data, onOpenChild, onOpenContent, onOpenTest)
                 }
             }
         }
@@ -129,6 +134,7 @@ private fun NodeBody(
     data: NodeContents,
     onOpenChild: (CourseNode) -> Unit,
     onOpenContent: (ContentItem) -> Unit,
+    onOpenTest: (Assessment) -> Unit,
 ) {
     val context = LocalContext.current
     LazyColumn(
@@ -144,6 +150,13 @@ private fun NodeBody(
             item { SectionHeader("Learning materials", trailing = "${data.materials.size}", modifier = Modifier.padding(top = 14.dp)) }
             itemsIndexed(data.materials, key = { _, it -> "m-${it.type}-${it.id}" }) { _, item ->
                 MaterialRow(item, onClick = { onOpenContent(item) })
+            }
+        }
+
+        if (state.tests.isNotEmpty()) {
+            item { SectionHeader("Tests", trailing = "${state.tests.size}", modifier = Modifier.padding(top = 14.dp)) }
+            itemsIndexed(state.tests, key = { _, it -> "t-${it.id}" }) { _, test ->
+                TestCard(test, onClick = { onOpenTest(test) })
             }
         }
 
@@ -163,7 +176,7 @@ private fun NodeBody(
         }
 
 
-        if (data.materials.isEmpty() && data.children.isEmpty()) {
+        if (data.materials.isEmpty() && data.children.isEmpty() && state.tests.isEmpty()) {
             item {
                 EmptyState(
                     title = "Nothing here yet",

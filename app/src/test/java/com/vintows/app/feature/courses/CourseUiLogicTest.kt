@@ -4,6 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import com.vintows.app.core.network.ErrorKind
 import com.vintows.app.core.network.NetworkResult
 import com.vintows.app.core.ui.Section
+import com.vintows.app.feature.assessments.domain.AnswerValue
+import com.vintows.app.feature.assessments.domain.Assessment
+import com.vintows.app.feature.assessments.domain.AssessmentsRepository
+import com.vintows.app.feature.assessments.domain.Question
 import com.vintows.app.feature.courses.domain.ContentItem
 import com.vintows.app.feature.courses.domain.ContentType
 import com.vintows.app.feature.courses.domain.CourseHierarchy
@@ -54,6 +58,16 @@ class CourseUiLogicTest {
             item.also { calls += "item:${type.apiPath}:$id:$levelCode:$recordId" }
     }
 
+    private object NoTests : AssessmentsRepository {
+        override suspend fun myTests() = NetworkResult.Success(emptyList<Assessment>())
+        override suspend fun testsForNode(levelCode: String, recordId: String, nodeName: String?) = NetworkResult.Success(emptyList<Assessment>())
+        override suspend fun check(assessmentId: String) = error("not used")
+        override suspend fun start(assessmentId: String) = error("not used")
+        override suspend fun attempt(attemptId: String) = error("not used")
+        override suspend fun submit(attemptId: String, questions: List<Question>, answers: Map<String, AnswerValue>) = error("not used")
+        override suspend fun reportProctoringEvent(attemptId: String, type: String, detail: String) = Unit
+    }
+
     @Test
     fun `program search matches name and description, and is remembered`() {
         val saved = SavedStateHandle()
@@ -84,6 +98,7 @@ class CourseUiLogicTest {
         val repo = FakeRepository()
         val vm = CourseNodeViewModel(
             repo,
+            NoTests,
             SavedStateHandle(mapOf("programId" to "p1", "levelCode" to "PROGRAM", "nodeId" to "p1", "title" to "Python Basics", "trail" to "")),
         )
 

@@ -3,7 +3,10 @@ package com.vintows.app.feature.courses.ui
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vintows.app.core.network.NetworkResult
 import com.vintows.app.core.ui.Section
+import com.vintows.app.feature.assessments.domain.Assessment
+import com.vintows.app.feature.assessments.domain.AssessmentsRepository
 import com.vintows.app.core.ui.toSection
 import com.vintows.app.feature.courses.domain.ContentItem
 import com.vintows.app.feature.courses.domain.ContentType
@@ -11,6 +14,7 @@ import com.vintows.app.feature.courses.domain.CourseNode
 import com.vintows.app.feature.courses.domain.CoursesRepository
 import com.vintows.app.feature.courses.domain.NodeContents
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -108,12 +112,15 @@ data class CourseNodeUiState(
     val trail: String,
     val contentUrl: String? = null,
     val contents: Section<NodeContents> = Section.Loading,
+    /** Tests attached to this node. A failure here just hides the section. */
+    val tests: List<Assessment> = emptyList(),
     val refreshing: Boolean = false,
 )
 
 @HiltViewModel
 class CourseNodeViewModel @Inject constructor(
     private val repository: CoursesRepository,
+    private val assessments: AssessmentsRepository,
     savedState: SavedStateHandle,
 ) : ViewModel() {
 
@@ -141,10 +148,16 @@ class CourseNodeViewModel @Inject constructor(
         val s = _state.value
         _state.update { if (refresh) it.copy(refreshing = true) else it.copy(contents = Section.Loading) }
         viewModelScope.launch {
+            val tests = async { assessments.testsForNode(s.levelCode, s.nodeId, s.title) }
             val result = repository.nodeContents(s.levelCode, s.nodeId, s.programId).toSection()
+            val testList = (tests.await() as? NetworkResult.Success)?.data
             _state.update { current ->
                 val keepOld = refresh && result is Section.Failed && current.contents is Section.Loaded
-                current.copy(contents = if (keepOld) current.contents else result, refreshing = false)
+                current.copy(
+                    contents = if (keepOld) current.contents else result,
+                    tests = testList ?: current.tests,
+                    refreshing = false,
+                )
             }
         }
     }

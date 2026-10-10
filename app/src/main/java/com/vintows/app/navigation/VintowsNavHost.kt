@@ -12,6 +12,11 @@ import com.vintows.app.AppState
 import com.vintows.app.feature.auth.ui.LoginRoute
 import com.vintows.app.feature.auth.ui.student.RegisterRoute
 import com.vintows.app.feature.auth.ui.student.StudentSignInRoute
+import com.vintows.app.feature.assessments.domain.Assessment
+import com.vintows.app.feature.assessments.ui.TestIntroDestination
+import com.vintows.app.feature.assessments.ui.TestIntroRoute
+import com.vintows.app.feature.assessments.ui.TestPlayerDestination
+import com.vintows.app.feature.assessments.ui.TestPlayerRoute
 import com.vintows.app.feature.courses.ui.ContentDestination
 import com.vintows.app.feature.courses.ui.ContentRoute
 import com.vintows.app.feature.courses.ui.CourseNodeDestination
@@ -103,6 +108,7 @@ fun VintowsNavHost(
                 onOpenNotifications = { navController.navigate(NotificationsDestination) { launchSingleTop = true } },
                 onOpenDiagnostics = { navController.navigate(DiagnosticsDestination) },
                 onOpenLeaderboard = { navController.navigate(LeaderboardDestination) { launchSingleTop = true } },
+                onOpenTest = { navController.navigate(it.toIntroDestination()) },
                 onOpenProgram = { program ->
                     navController.navigate(
                         CourseNodeDestination(programId = program.id, levelCode = program.levelCode, nodeId = program.id, title = program.name),
@@ -121,7 +127,17 @@ fun VintowsNavHost(
                 onBack = { navController.popBackStack() },
                 onOpenNode = { navController.navigate(it) },
                 onOpenContent = { navController.navigate(it) },
+                onOpenTest = { navController.navigate(it.toIntroDestination()) },
             )
+        }
+        composable<TestIntroDestination> {
+            TestIntroRoute(
+                onBack = { navController.popBackStack() },
+                onStart = { navController.navigate(it) { launchSingleTop = true } },
+            )
+        }
+        composable<TestPlayerDestination> {
+            TestPlayerRoute(onExit = { navController.popBackStack() })
         }
         composable<ContentDestination> {
             ContentRoute(onBack = { navController.popBackStack() })
@@ -131,3 +147,6 @@ fun VintowsNavHost(
         }
     }
 }
+
+private fun Assessment.toIntroDestination() =
+    TestIntroDestination(assessmentId = id, name = name, levelCode = levelCode, recordId = recordId)

@@ -51,6 +51,7 @@ app/src/main/java/com/vintows/app/
 │  ├─ auth/          Password login, student email-code sign-in and sign-up, AuthRepository
 │  ├─ gamification/  Learner dashboard (level, streaks, missions, badges, achievements) and Leaderboard
 │  ├─ courses/       Programs → Subject → Chapter → Lesson → Topic, learning materials and viewers
+│  ├─ assessments/   Tests tab, test intro, test player (timer, palette, proctoring, resume) and results
 │  ├─ notifications/ Notifications list (GET notifications)
 │  ├─ home/          App shell: top bar, role-based bottom tabs, Modules tab, Profile tab
 │  └─ foundation/    Diagnostics screen (debug builds, opened from Profile)
